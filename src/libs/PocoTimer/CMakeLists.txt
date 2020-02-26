@@ -22,8 +22,8 @@ target_include_directories(${PROJECT_NAME}
     ${PROJECT_SOURCE_DIR}/include
 )
 
-# Specify Poco::Foundation library to use when linking
+# Specify Poco libraries to use when linking
 target_link_libraries(${PROJECT_NAME}
   PUBLIC
-    Foundation
+    ${CONAN_LIBS}
 )
