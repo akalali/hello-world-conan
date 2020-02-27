@@ -1,6 +1,8 @@
-C++ hello-world project using CMake and Conan.
+## C++ hello-world project using CMake and Conan.
 
 This simple hello-world project uses [Poco][poco-github] as a third party library. Poco is included in this project via [Conan][conan].
+
+There are two variants of how to use this repository. They are tagged so you can checkout your desired variant.
 
 ### Setting up Conan
 To install conan, see the [Conan documentation][conan-install]. It is recommended to use a [virtual environment][venv] with python.
@@ -51,10 +53,8 @@ poco/1.10.0
 poco/1.10.1
 ```
 
-If you look at the [conanfile.txt](conanfile.txt#L2) you'll see that `poco/1.10.1` is the package recipe that is required for this project to be built.
-
 ### Installing dependencies
-With the [conanfile.txt](conanfile.txt) we can tell conan to install the required dependencies and set the correct paths for our project to use. In our case the only dependency is the Poco library.
+With the [conanfile.txt](conanfile.txt) we can tell conan to install the required dependencies and set the correct paths for our project to use. If you look at the [conanfile.txt](conanfile.txt#L2) you'll see that `poco/1.10.1` is the package recipe that is required for this project to be built.
 
 Since we recommend doing an out-of-source-build you should create a `build`-directory next to the `src`-directory and change to this directory. Within this directory you type
 
@@ -78,7 +78,7 @@ That is because our `conanfile.txt` specified some Poco modules to be disabled, 
 conan install .. --build poco
 ```
 
-Conan will automatically check if the required dependency is already contained in your local cache. So doing this will not download OpenSSL and zlib again. After checking the local cache poco will be built with the customized build options. To see if everything worked well, you can type
+Conan will automatically check if the required dependency is already contained in your local cache. So doing this will not download OpenSSL and zlib again. After checking the local cache Poco will be built with the customized build options. To see if everything worked well, you can type
 
 ```
 conan search
@@ -104,6 +104,27 @@ If you look into your `build`-directory you will find some files that have been 
 - conaninfo.txt
 
 The `conanbuildinfo.cmake` is the file that is being used by the project's [CMakeLists.txt](CMakeLists.txt#L19). It defines a funcion [`conan_basic_setup`](CMakeLists.txt#L20) that sets all the required variables for CMake to find the installed dependencies. Especially the variable `CONAN_LIBS` is set, which is used in the [CMakeLists.txt](src/libs/PocoTimer/CMakeLists.txt#L28) of the PocoTimer library, to specify the Poco libraries to use when linking the PocoTimer.
+
+Using your favorite way to configure and generate a CMake project will set up your build files so that you can build and run the application using some Poco includes.
+
+### Installing dependencies
+With the [conan.cmake](cmake/conan.cmake) we can tell conan to install the required dependencies and set the correct paths for our project to use. If you look at the [conan.cmake](cmake/conan.cmake#L11) you'll see that `poco/1.10.1` is the package recipe that is required for this project to be built.
+
+The `conan.cmake` is the file that is being used by the project's [CMakeLists.txt](CMakeLists.txt#L20). It downloads another file - `conan.cmake` - and uses its function [`conan_cmake_run`](cmake/conan.cmake#L11) to call Conan. This will install the required dependencies. The [conan.cmake](cmake/conan.cmake#L14) additionally defines some customized build options. These options can be found in [conan_options.cmake](cmake/conan_options.cmake).
+
+If you configure your project using CMake, you will get an error, stating that the Conan executable was not found. You have to set the variable `CONAN_CMD` to your Conan executable (see [anchor](#setting-up-conan)).
+
+If your Conan executable was successfully found, you will see Conan installing the Poco library into your local cache. Note how the transitive dependencies for Poco - OpenSSL and zlib - will be installed, too.
+
+### Using packages
+If you look into your `build`-directory you will find some files that have been created by Conan:
+
+- conan_paths.cmake
+- FindPoco.cmake
+
+The `conan_paths.cmake` is the file that is being used by the project's [CMakeLists.txt](CMakeLists.txt#L23). It defines all the required variables for CMake to find the installed dependencies.
+
+The `FindPoco.cmake` is a customized `Find<PackageName>.cmake` so that the usual `find_package` can be used, as in [CMakeLists.txt](src/CMakeLists.txt#L2).
 
 Using your favorite way to configure and generate a CMake project will set up your build files so that you can build and run the application using some Poco includes.
 
