@@ -9,7 +9,7 @@ For the [Conan install variant][conan-install], see [Setting up Conan][conan-ins
 For the [Conan cmake variant][conan-cmake], see [Setting up Conan][conan-cmake-setup].
 
 ### Setting up Conan
-To install conan, see the [Conan documentation][conan-install]. It is recommended to use a [virtual environment][venv] with python.
+To install conan, see the [Conan documentation][conan-doc]. It is recommended to use a [virtual environment][venv] with python.
 
 After you activated your virtual environment and installed Conan(see [install packages][venv-active]), check if conan is set up correctly by typing `conan`.
 Conan should have automatically set up a remote repository, the [Conan center][conan-center]. If you type
@@ -142,7 +142,7 @@ Using your favorite way to configure and generate a CMake project will set up yo
 [conan-cmake-setup]: https://github.com/akalali/hello-world-conan/blob/conan-cmake-1.0.0/README.md#setting-up-conan
 [poco-github]: https://github.com/pocoproject/poco
 [conan]: https://conan.io/
-[conan-install]: https://docs.conan.io/en/latest/installation.html#install-with-pip-recommended
+[conan-doc]: https://docs.conan.io/en/latest/installation.html#install-with-pip-recommended
 [venv]: https://docs.python.org/3/library/venv.html
 [venv-active]: https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
 [conan-center]: https://conan.io/center/
