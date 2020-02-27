@@ -12,7 +12,7 @@ Conan should have automatically set up a remote repository, the [Conan center][c
 conan remote list
 ```
 
-you will get a list of all your remote repository. For a new install this should be:
+you will get a list of all your remote repositories. For a new install this should be:
 
 ```
 conan-center: https://conan.bintray.com [Verify SSL: True]
@@ -39,7 +39,7 @@ If you type
 conan search poco --remote=conan-center
 ```
 
-you will get an output similar to the following (depending on the remote poco versions available):
+you will get an output similar to the following (depending on the remote Poco versions available):
 
 ```
 Existing package recipes:
@@ -51,7 +51,7 @@ poco/1.10.0
 poco/1.10.1
 ```
 
-If you look at the [conanfile.txt](conanfile.txt) you see that `poco/1.10.1` is the package recipe that is required for this project to be built.
+If you look at the [conanfile.txt](conanfile.txt#L2) you'll see that `poco/1.10.1` is the package recipe that is required for this project to be built.
 
 ### Installing dependencies
 With the [conanfile.txt](conanfile.txt) we can tell conan to install the required dependencies and set the correct paths for our project to use. In our case the only dependency is the Poco library.
