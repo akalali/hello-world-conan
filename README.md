@@ -2,7 +2,11 @@
 
 This simple hello-world project uses [Poco][poco-github] as a third party library. Poco is included in this project via [Conan][conan].
 
-There are two variants of how to use this repository. They are tagged so you can checkout your desired variant.
+There are two variants of how to use this repository. They are tagged so you can checkout your desired variant:
+
+For the [Conan install variant][conan-install], see [Setting up Conan][conan-install-setup].
+
+For the [Conan cmake variant][conan-cmake], see [Setting up Conan][conan-cmake-setup].
 
 ### Setting up Conan
 To install conan, see the [Conan documentation][conan-install]. It is recommended to use a [virtual environment][venv] with python.
@@ -132,6 +136,10 @@ Using your favorite way to configure and generate a CMake project will set up yo
 
 #### Profiles
 
+[conan-install]: https://github.com/akalali/hello-world-conan/tree/conan-install-1.0.0
+[conan-install-setup]: https://github.com/akalali/hello-world-conan/blob/conan-install-1.0.0/README.md#setting-up-conan
+[conan-cmake]: https://github.com/akalali/hello-world-conan/tree/conan-cmake-1.0.0
+[conan-cmake-setup]: https://github.com/akalali/hello-world-conan/blob/conan-cmake-1.0.0/README.md#setting-up-conan
 [poco-github]: https://github.com/pocoproject/poco
 [conan]: https://conan.io/
 [conan-install]: https://docs.conan.io/en/latest/installation.html#install-with-pip-recommended
