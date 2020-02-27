@@ -15,15 +15,15 @@ if(NOT CMAKE_BUILD_TYPE)
   message(STATUS "No build type selected, default to ${CMAKE_BUILD_TYPE}")
 endif()
 
-# Include Conan build info for third party libraries
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup()
+# Run conan from cmake to install third party libraries
+include(cmake/conan_options.cmake)
+include(cmake/conan.cmake)
+run_conan()
+
+include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
 
 # Turn on using solution folders
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-
-# Set third party libraries solution folders
-#set_property(TARGET Foundation PROPERTY FOLDER "ThirdParty")
 
 # Setup output directories
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY

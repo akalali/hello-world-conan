@@ -25,5 +25,5 @@ target_include_directories(${PROJECT_NAME}
 # Specify Poco libraries to use when linking
 target_link_libraries(${PROJECT_NAME}
   PUBLIC
-    ${CONAN_LIBS}
+    Poco::Poco
 )

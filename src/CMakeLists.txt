@@ -1,3 +1,6 @@
+# Find poco library
+find_package(Poco COMPONENTS Foundation REQUIRED)
+
 # Add sub directories with local source code
 add_subdirectory(app)
 add_subdirectory(libs/Hello)
