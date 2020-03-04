@@ -2,7 +2,8 @@
 poco/1.10.1
 
 [generators]
-cmake
+cmake_find_package
+cmake_paths
 
 [options]
 poco:enable_apacheconnector=False
