@@ -4,13 +4,13 @@ This variant is enabled if the CMake variable `CONAN_CMAKE` is enabled.
 Installing the dependencies is done during the configuration-step in CMake, which is described in the following section.
 
 ### Installing dependencies
-With the [conan_run.cmake](cmake/conan_run.cmake) we can tell Conan to install the required dependencies and set the correct paths for our project to use.
-If you look at the [conan_run.cmake](cmake/conan_run.cmake#L10) you'll see that `poco/1.10.1` is the package recipe that is required for this project to be built.
+With the [conan_run.cmake](../cmake/conan_run.cmake) we can tell Conan to install the required dependencies and set the correct paths for our project to use.
+If you look at the [conan_run.cmake](../cmake/conan_run.cmake#L10) you'll see that `poco/1.10.1` is the package recipe that is required for this project to be built.
 
-The `conan_run.cmake` is the file that is being used by the project's [CMakeLists.txt](CMakeLists.txt#L27).
-It downloads another file - `conan.cmake` - and uses its function [`conan_cmake_run`](cmake/conan_run.cmake#L10) to call Conan.
-This will install the required dependencies. The [conan_run.cmake](cmake/conan_run.cmake#L13) additionally defines some customized build options.
-These options can be found in [conan_options.cmake](cmake/conan_options.cmake).
+The `conan_run.cmake` is the file that is being used by the project's [CMakeLists.txt](../CMakeLists.txt#L27).
+It downloads another file - `conan.cmake` - and uses its function [`conan_cmake_run`](../cmake/conan_run.cmake#L10) to call Conan.
+This will install the required dependencies. The [conan_run.cmake](../cmake/conan_run.cmake#L13) additionally defines some customized build options.
+These options can be found in [conan_options.cmake](../cmake/conan_options.cmake).
 
 Since we recommend doing an out-of-source-build you should create a `build-release`-directory next to the `src`-directory
 (for more information about different build types and their limitations see [Build types][conan-buildtypes]).
@@ -27,10 +27,10 @@ If you look into your `build`-directory you will find some files that have been 
 - conan_paths.cmake
 - FindPoco.cmake
 
-The `conan_paths.cmake` is the file that is being used by the project's [CMakeLists.txt](CMakeLists.txt#L33).
+The `conan_paths.cmake` is the file that is being used by the project's [CMakeLists.txt](../CMakeLists.txt#L33).
 It defines all the required variables for CMake to find the installed dependencies.
 
-The `FindPoco.cmake` is a customized `Find<PackageName>.cmake` so that the usual `find_package` can be used, as in [CMakeLists.txt](src/CMakeLists.txt#L2).
+The `FindPoco.cmake` is a customized `Find<PackageName>.cmake` so that the usual `find_package` can be used, as in [CMakeLists.txt](../src/CMakeLists.txt#L2).
 
 Now you can run the application using some Poco includes.
 
