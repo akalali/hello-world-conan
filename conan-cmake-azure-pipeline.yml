@@ -1,0 +1,95 @@
+trigger:
+- master
+
+variables:
+  VisualStudio: Visual Studio 15 2017 Win64
+  Makefiles: Unix Makefiles
+
+jobs:
+# WINDOWS JOB DEFINITION
+- job:
+  displayName: Windows
+  timeoutInMinutes: 0
+  pool:
+    vmImage: 'vs2017-win2016 '
+  strategy:
+    matrix:
+      Debug:
+        BuildType: Debug
+      Release:
+        BuildType: Release
+
+  steps:
+  - script: |
+      python -m pip install conan==1.22.2
+    workingDirectory: '$(Agent.BuildDirectory)'
+    displayName: 'Install Conan'
+
+  - task: CMake@1
+    displayName: 'Configure and generate project for $(BuildType)'
+    inputs:
+      cmakeArgs: '.. -G"$(VisualStudio)" -DCONAN_CMAKE=TRUE -DCONAN_CMD="C:\hostedtoolcache\windows\Python\3.6.8\x64\Scripts\conan.exe" -DCMAKE_BUILD_TYPE="$(BuildType)"'
+
+  - task: CMake@1
+    displayName: 'Build project for $(BuildType)'
+    inputs:
+      cmakeArgs: '--build . --config $(BuildType)'
+
+# MACOS JOB DEFINITION
+- job:
+  displayName: macOS
+  timeoutInMinutes: 0
+  pool:
+    vmImage: 'macOS-10.15'
+  strategy:
+    matrix:
+      Debug:
+        BuildType: Debug
+      Release:
+        BuildType: Release
+
+  steps:
+  - script: |
+      python3 -m pip install conan==1.22.2
+    workingDirectory: '$(Agent.BuildDirectory)'
+    displayName: 'Install Conan'
+
+  - task: CMake@1
+    displayName: 'Configure and generate project for $(BuildType)'
+    inputs:
+      cmakeArgs: '..  -G"$(Makefiles)" -DCONAN_CMAKE=TRUE -DCONAN_CMD="/usr/local/bin/conan" -DCMAKE_BUILD_TYPE="$(BuildType)"'
+
+  - task: CMake@1
+    displayName: 'Build project for $(BuildType)'
+    inputs:
+      cmakeArgs: '--build .'
+
+# LINUX JOB DEFINITION
+- job:
+  displayName: Ubuntu
+  timeoutInMinutes: 0
+  pool:
+    vmImage: 'ubuntu-18.04'
+  strategy:
+    matrix:
+      Debug:
+        BuildType: Debug
+      Release:
+        BuildType: Release
+
+  steps:
+  - script: |
+      python3 -m pip install --upgrade pip setuptools wheel
+      python3 -m pip install conan==1.22.2 --user
+    workingDirectory: '$(Agent.BuildDirectory)'
+    displayName: 'Install Conan'
+
+  - task: CMake@1
+    displayName: 'Configure and generate project for $(BuildType)'
+    inputs:
+      cmakeArgs: '..  -G"$(Makefiles)" -DCONAN_CMAKE=TRUE -DCONAN_CMD="/home/vsts/.local/bin/conan" -DCMAKE_BUILD_TYPE="$(BuildType)"'
+
+  - task: CMake@1
+    displayName: 'Build project for $(BuildType)'
+    inputs:
+      cmakeArgs: '--build .'
